@@ -1,11 +1,14 @@
 package App::LogEater;
 
 use 5.006;
+
+
 use strict;
 use warnings;
 use Carp;
 use Module::Load;
 use POE qw( Wheel::FollowTail );
+require Exporter;
 
 
 =head1 NAME
@@ -29,6 +32,15 @@ our $VERSION = '0.001001';
     my $logeater = App::LogEater->new;
     
     $logeater->use_config($config);
+
+
+    object 'BoogerHead'
+    
+    logfile 'BoogerHead:/var/data/logs/messages
+    
+    module '
+    
+    
     
     $logeater->eat;
 
@@ -40,8 +52,13 @@ our $VERSION = '0.001001';
 The constructor. Accepts no arguments (this may change).
 =cut
 sub new {
-    my ($class,$self) = @_;
-    $self = {};
+    my $class = shift;
+    #croak "new() needs stuff"                           unless $_[0];
+    #croak "Argument passed to new() must be a hashref"  unless (ref $_[0] eq 'HASH');
+    #my $self = shift;
+    #croak "Missing new({ config => ? }) "               unless exists $self->{config};
+    
+    my $self = {};    
     bless $self, $class;
     return $self;
 }
@@ -322,7 +339,7 @@ sub _load_watchers {
                     $heap->{watchers}{$log_watcher->ID} = $log_watcher;
                     
                 },
-                $object => \&_dispatch,
+                $object   => \&_dispatch,
                 log_reset => \&_log_reset,
                 log_error => \&_log_error,
             }
