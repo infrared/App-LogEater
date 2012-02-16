@@ -8,7 +8,7 @@ use warnings;
 use Carp;
 use Module::Load;
 use POE qw( Wheel::FollowTail );
-require Exporter;
+
 
 
 =head1 NAME
@@ -32,15 +32,6 @@ our $VERSION = '0.001001';
     my $logeater = App::LogEater->new;
     
     $logeater->use_config($config);
-
-
-    object 'BoogerHead'
-    
-    logfile 'BoogerHead:/var/data/logs/messages
-    
-    module '
-    
-    
     
     $logeater->eat;
 
