@@ -7,9 +7,10 @@ use lib './lib';
 use App::LogEater;
 
 
-my $logeater = App::LogEater->new({ booger => 'that'});
+my $logeater = App::LogEater->new;
 
 $logeater->use_config( $logeater->demo );
+
 
 
 #$logeater->merge($coderef);

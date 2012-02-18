@@ -63,7 +63,9 @@ Accepts no arguements. Builds all POE sessions and runs.
 =cut
 sub eat {
     my ($self) = shift;
+
     $self->_load_config;
+    die "No valid objects" unless keys %{$self->{objects}};
     $self->_load_watchers;
     POE::Kernel->run;
 }
@@ -81,7 +83,7 @@ sub demo {
                 datasources => {
                     ds1 => {
                         parser => {
-                            module => 'LogEater::Parser::Dummy',
+                            module => 'App::LogEater::Parser::Dummy',
                             method => 'parse',
                         },
                         logfile => "demo.log",
@@ -286,9 +288,13 @@ sub _load_config {
             
                         }
                         else {
-                
-                            next; # is this even vaild here?
+                            $self->_log( "Skipping $object/$datasource: " . join (', ',@errors)) if @errors;
+                            
                         }
+                    }
+                    else {
+                        
+                        $self->_log( "Skipping $object/$datasource: " . join (', ',@errors)) if @errors;
                     }
                 }
     
